@@ -109,41 +109,5 @@ public class Tasks_1_2_3_4_5 {
         Assert.assertTrue(loggedIn.isDisplayed());
     }
 
-    @Test (priority = 6)
-    public void test() throws InterruptedException {
-        driver.get("https://www.tempmailaddress.com/");
-        String email = driver.findElement(By.id("email")).getText();
-
-        driver.get("https://practice-cybertekschool.herokuapp.com");
-        driver.findElement(By.linkText("Sign Up For Mailing List")).click();
-
-        driver.findElement(By.xpath("//input")).sendKeys("Mike Smith");
-        driver.findElement(By.xpath("(//input)[2]")).sendKeys(email);
-        driver.findElement(By.xpath("//button")).click();
-
-        String expectedText = "Thank you for signing up. Click the button below to return to the home page.";
-        WebElement actualText = driver.findElement(By.xpath("//h3"));
-        Assert.assertEquals(actualText.getText(),expectedText, "Verify that the messages are the same.");
-
-        driver.navigate().back();
-        driver.navigate().back();
-        driver.navigate().back();
-
-        WebElement emailCheck = driver.findElement(By.xpath("//*[@id=\"schranka\"]//td[1]"));
-        Assert.assertTrue(emailCheck.getText().contains("do-not-reply"), "Verify that the email is sent from do-not-reply");
-
-        emailCheck.click();
-        WebElement emailSender = driver.findElement(By.id("odesilatel"));
-        String expectedEmail = "do-not-reply@practice.cybertekschool.com";
-        String actualEmail = emailSender.getText();
-        Assert.assertEquals(expectedEmail,actualEmail,"Verify that email sent from do-not-reply@practice.cybertekschool.com");
-
-        WebElement emailSubject = driver.findElement(By.id("predmet"));
-        String expectedSubject = "Thanks for subscribing to practice.cybertekschool.com!";
-        String actualSubject = emailSubject.getText();
-        Assert.assertEquals(expectedSubject,actualSubject,"Verify that email subject is correct");
-
-    }
-
 
 }

@@ -6,10 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,14 +28,10 @@ public class AllTheTask_inOnePlace {
         driver.quit();
     }
 
-    @BeforeClass
-    public void setupFor1() {
-        driver.get("https://practice-cybertekschool.herokuapp.com");
-        driver.findElement(By.linkText("Registration Form")).click();
-    }
-
     @Test(priority = 1)
     public void dateOfBirth() {
+        driver.get("https://practice-cybertekschool.herokuapp.com");
+        driver.findElement(By.linkText("Registration Form")).click();
         WebElement dateOfBirthBox = driver.findElement(By.xpath("//*[@id=\"registrationForm\"]/div[8]//input"));
         String date = "wrong_dob";
         dateOfBirthBox.sendKeys(date);
@@ -46,56 +39,40 @@ public class AllTheTask_inOnePlace {
         Assert.assertTrue(notValidWarning.isDisplayed(), "Verify that the warning for invalid birthday is displayed");
     }
 
-    @BeforeClass
-    public void setupFor2() {
-        driver.get("https://practice-cybertekschool.herokuapp.com");
-        driver.findElement(By.linkText("Registration Form")).click();
-    }
-
     @Test (priority = 2)
     public void programmingLanguages() {
+        driver.get("https://practice-cybertekschool.herokuapp.com");
+        driver.findElement(By.linkText("Registration Form")).click();
         List<WebElement> checkBoxes = driver.findElements(By.className("form-check-label"));
         for (int i = 0; i < checkBoxes.size(); i++) {
             Assert.assertTrue(checkBoxes.get(i).isDisplayed(), "Verify that the checkbox " + i + " is displayed");
         }
     }
 
-    @BeforeClass
-    public void setupFor3() {
-        driver.get("https://practice-cybertekschool.herokuapp.com");
-        driver.findElement(By.linkText("Registration Form")).click();
-    }
-
     @Test (priority = 3)
     public void onlyOneLetterName() {
+        driver.get("https://practice-cybertekschool.herokuapp.com");
+        driver.findElement(By.linkText("Registration Form")).click();
         WebElement firstNameTextBox = driver.findElement(By.name("firstname"));
         firstNameTextBox.sendKeys("A");
         WebElement firstNameWarning = driver.findElement(By.xpath("//*[contains(text(),'first name must be more than 2')]"));
         Assert.assertTrue(firstNameWarning.isDisplayed(), "Verify that the firstName more than 2 letter warning is displayed");
     }
 
-    @BeforeClass
-    public void setupFor4() {
-        driver.get("https://practice-cybertekschool.herokuapp.com");
-        driver.findElement(By.linkText("Registration Form")).click();
-    }
-
     @Test (priority = 4)
     public void onlyOneLetterSurname() {
+        driver.get("https://practice-cybertekschool.herokuapp.com");
+        driver.findElement(By.linkText("Registration Form")).click();
         WebElement lastNameTextBox = driver.findElement(By.name("lastname"));
         lastNameTextBox.sendKeys("o");
         WebElement lastNameWarning = driver.findElement(By.xpath("//*[contains(text(),'last name must be more than 2')]"));
         Assert.assertTrue(lastNameWarning.isDisplayed(), "Verify that the lastName more than 2 letter warning is displayed");
     }
 
-    @BeforeClass
-    public void setupFor5() {
-        driver.get("https://practice-cybertekschool.herokuapp.com");
-        driver.findElement(By.linkText("Registration Form")).click();
-    }
-
     @Test (priority = 5)
     public void signUpSteps() {
+        driver.get("https://practice-cybertekschool.herokuapp.com");
+        driver.findElement(By.linkText("Registration Form")).click();
         WebElement firstNameTextBox = driver.findElement(By.name("firstname"));
         firstNameTextBox.sendKeys("Asude");
 
@@ -140,8 +117,44 @@ public class AllTheTask_inOnePlace {
         Assert.assertTrue(loggedIn.isDisplayed());
     }
 
+    @Test (priority = 6)
+    public void test6() throws InterruptedException {
+        driver.get("https://www.tempmailaddress.com/");
+        String email = driver.findElement(By.id("email")).getText();
+
+        driver.get("https://practice-cybertekschool.herokuapp.com");
+        driver.findElement(By.linkText("Sign Up For Mailing List")).click();
+
+        driver.findElement(By.xpath("//input")).sendKeys("Mike Smith");
+        driver.findElement(By.xpath("(//input)[2]")).sendKeys(email);
+        driver.findElement(By.xpath("//button")).click();
+
+        String expectedText = "Thank you for signing up. Click the button below to return to the home page.";
+        WebElement actualText = driver.findElement(By.xpath("//h3"));
+        Assert.assertEquals(actualText.getText(),expectedText, "Verify that the messages are the same.");
+
+        driver.navigate().back();
+        driver.navigate().back();
+        driver.navigate().back();
+
+        WebElement emailCheck = driver.findElement(By.xpath("//*[@id=\"schranka\"]//td[1]"));
+        Assert.assertTrue(emailCheck.getText().contains("do-not-reply"), "Verify that the email is sent from do-not-reply");
+
+        emailCheck.click();
+        WebElement emailSender = driver.findElement(By.id("odesilatel"));
+        String expectedEmail = "do-not-reply@practice.cybertekschool.com";
+        String actualEmail = emailSender.getText();
+        Assert.assertEquals(expectedEmail,actualEmail,"Verify that email sent from do-not-reply@practice.cybertekschool.com");
+
+        WebElement emailSubject = driver.findElement(By.id("predmet"));
+        String expectedSubject = "Thanks for subscribing to practice.cybertekschool.com!";
+        String actualSubject = emailSubject.getText();
+        Assert.assertEquals(expectedSubject,actualSubject,"Verify that email subject is correct");
+
+    }
+
     @Test (priority = 7)
-    public void test() {
+    public void test7() {
         driver.get("https://practice-cybertekschool.herokuapp.com");
         driver.findElement(By.linkText("File Upload")).click();
         WebElement chooseFile = driver.findElement(By.name("file"));
@@ -160,5 +173,19 @@ public class AllTheTask_inOnePlace {
 
     }
 
+    @Test
+    public void test8() {
+        driver.get("https://practice-cybertekschool.herokuapp.com");
+        driver.findElement(By.linkText("Autocomplete")).click();
+        String country = "United States of America";
+        driver.findElement(By.id("myCountry")).sendKeys(country);
+        driver.findElement(By.xpath("//input[@type='button']")).click();
+
+        String expectedText = "You selected: " + country;
+        String actualText = driver.findElement(By.id("result")).getText();
+
+        Assert.assertEquals(expectedText,actualText, "Verify that submission was successful");
+
+    }
 
 }
