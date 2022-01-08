@@ -11,7 +11,7 @@ import org.testng.annotations.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class AllTheTask_inOnePlace {
+public class allTheTasksInOnePlace {
     WebDriver driver;
 
     @BeforeMethod
@@ -118,7 +118,7 @@ public class AllTheTask_inOnePlace {
     }
 
     @Test (priority = 6)
-    public void test6() throws InterruptedException {
+    public void test6() {
         driver.get("https://www.tempmailaddress.com/");
         String email = driver.findElement(By.id("email")).getText();
 
@@ -185,7 +185,50 @@ public class AllTheTask_inOnePlace {
         String actualText = driver.findElement(By.id("result")).getText();
 
         Assert.assertEquals(expectedText,actualText, "Verify that submission was successful");
-
     }
 
+    @Test
+    public void statusCodesBasic() {
+
+        driver.get("https://practice-cybertekschool.herokuapp.com");
+        driver.findElement(By.linkText("Status Codes")).click();
+        driver.findElement(By.linkText("200")).click();
+        WebElement confirmMessage = driver.findElement(By.xpath("//*[contains(text(),'200')]"));
+        Assert.assertTrue(confirmMessage.isDisplayed());
+
+        driver.navigate().back();
+
+        driver.findElement(By.linkText("301")).click();
+        confirmMessage = driver.findElement(By.xpath("//*[contains(text(),'301')]"));
+        Assert.assertTrue(confirmMessage.isDisplayed());
+
+        driver.navigate().back();
+
+        driver.findElement(By.linkText("404")).click();
+        confirmMessage = driver.findElement(By.xpath("//*[contains(text(),'404')]"));
+        Assert.assertTrue(confirmMessage.isDisplayed());
+
+        driver.navigate().back();
+
+        driver.findElement(By.linkText("500")).click();
+        confirmMessage = driver.findElement(By.xpath("//*[contains(text(),'500')]"));
+        Assert.assertTrue(confirmMessage.isDisplayed());
+    }
+
+    @Test
+    public void statusCodesInLoop() {
+        driver.get("https://practice-cybertekschool.herokuapp.com/");
+        driver.findElement(By.linkText("Status Codes")).click();
+        List<WebElement> elements = driver.findElements(By.xpath("//*[@id=\"content\"]/div/ul/li/a"));
+        Assert.assertEquals(elements.size(), 4);
+
+        for (int i = 0; i < elements.size(); i++) {
+            WebElement each = driver.findElement(By.xpath("(//*[@id=\"content\"]/div/ul/li/a)[" + (i + 1) + "]"));
+            String control = each.getText();
+            each.click();
+            String actual = driver.findElement(By.xpath("//p")).getText();
+            Assert.assertTrue(actual.contains(control), "Verify that status code " + (i+1) + " contains the code");
+            driver.navigate().back();
+        }
+    }
 }

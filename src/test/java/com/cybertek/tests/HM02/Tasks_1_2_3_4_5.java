@@ -108,6 +108,4 @@ public class Tasks_1_2_3_4_5 {
         WebElement loggedIn = driver.findElement(By.xpath("//p[contains(text(),'successful')]"));
         Assert.assertTrue(loggedIn.isDisplayed());
     }
-
-
 }
