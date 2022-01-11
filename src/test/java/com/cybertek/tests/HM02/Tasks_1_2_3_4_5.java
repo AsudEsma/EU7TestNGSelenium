@@ -53,7 +53,7 @@ public class Tasks_1_2_3_4_5 {
         WebElement firstNameTextBox = driver.findElement(By.name("firstname"));
         firstNameTextBox.sendKeys("A");
         WebElement firstNameWarning = driver.findElement(By.xpath("//*[contains(text(),'first name must be more than 2')]"));
-        Assert.assertFalse(firstNameWarning.isDisplayed(), "Verify that the firstName more than 2 letter warning is displayed");
+        Assert.assertTrue(firstNameWarning.isDisplayed(), "Verify that the firstName more than 2 letter warning is displayed");
     }
 
     @Test (priority = 4)
