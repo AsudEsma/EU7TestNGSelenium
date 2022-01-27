@@ -13,10 +13,19 @@ public class LoginPage {
     }
 
     //driver.findElement(By.id("prependedInput"));
+
+    // OR case
     @FindAll({
             @FindBy(id = "prependedInput"),
             @FindBy(name ="_username")
     })
+
+    // AND case
+/*    @FindBy({
+            @FindBy(id = "prependedInput"),
+            @FindBy(name ="_username")
+    })                                      */
+
     public WebElement usernameInput;
 
     @FindBy(id = "prependedInput2")
@@ -25,8 +34,6 @@ public class LoginPage {
     //driver.findElement(By.id("_submit"));
     @FindBy(id = "_submit")
     public WebElement loginBtn;
-
-
 
     public void login(String username,String password){
         usernameInput.sendKeys(username);

@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 public class BrowserUtils {
-    /*
+    /**
      * takes screenshot
      * @param name
      * take a name of a test and returns a path to screenshot takes
