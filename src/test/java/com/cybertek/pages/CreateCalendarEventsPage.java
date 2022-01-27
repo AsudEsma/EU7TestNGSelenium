@@ -50,8 +50,6 @@ public class CreateCalendarEventsPage extends BasePage {
     @FindBy(xpath = "(//input[@type='radio'])[5]")
     public WebElement by;
 
-
-
     public Select repeatOptionsList(){
         return new Select(repeatOptions);
     }
