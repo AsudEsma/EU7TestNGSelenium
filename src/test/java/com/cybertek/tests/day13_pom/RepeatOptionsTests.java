@@ -88,11 +88,17 @@ public class RepeatOptionsTests extends TestBase {
         Select repeatsDropdowns = createCalendarEventsPage.repeatOptionsList();
         List<String> expectedList = Arrays.asList("Daily", "Weekly", "Monthly", "Yearly");
         List<WebElement> actualOptions = repeatsDropdowns.getOptions();
+
         List<String> actualList = new ArrayList<>();
         for (WebElement we : actualOptions) {
             actualList.add(we.getText());
         }
-
+        /**
+         * This is exactly the same thing with what we did in the previous lines.
+         * You can use ready methods.
+         * It will become a habit when you try to find more options on some sort fo a daily basis.
+         */
+        List<String> actualList2 = BrowserUtils.getElementsText(actualOptions);
         Assert.assertEquals(actualList, expectedList, "Verify that the repeat options are an exact match with the order");
     }
 }
