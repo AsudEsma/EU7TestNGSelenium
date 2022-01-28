@@ -19,38 +19,38 @@ public class TestBase {
     protected WebDriver driver;
     protected Actions actions;
     protected WebDriverWait wait;
+    // This class is used for starting and building reports
     protected static ExtentReports report;
-    //this class is used to create HTML report file
+    // This class is used to create HTML report file
     protected static ExtentHtmlReporter htmlReporter;
-    //this will  define a test, enables adding logs, authors, test steps
+    // This will define a test, enables adding logs, authors, and test steps
     protected static ExtentTest extentLogger;
 
-    //env set up
+    // Environment set up
     protected  String url;
 
     @BeforeTest
     public void setUpTest(){
-        //initialize the class
+        // Initialize the class
         report = new ExtentReports();
 
-        //create a report path
+        // Create a report path
         String projectPath = System.getProperty("user.dir");
         String path = projectPath + "/test-output/report.html";
 
-        //initialize the html reporter with the report path
+        // Initialize the HTML reporter with the report path
         htmlReporter = new ExtentHtmlReporter(path);
 
-        //attach the html report to report object
+        // Attach the HTML report to report object
         report.attachReporter(htmlReporter);
 
-        //title in report
+        // Title in report
         htmlReporter.config().setReportName("Vytrack Smoke Test");
 
-        //set environment information
-        report.setSystemInfo("Environment","QA");
+        // Set environment information
+        report.setSystemInfo("Environment", "QA");
         report.setSystemInfo("Browser", ConfigurationReader.get("browser"));
-        report.setSystemInfo("OS",System.getProperty("os.name"));
-
+        report.setSystemInfo("OS", System.getProperty("os.name"));
     }
 
     @BeforeMethod
