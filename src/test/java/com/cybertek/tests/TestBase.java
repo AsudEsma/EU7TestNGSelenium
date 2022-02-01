@@ -72,21 +72,21 @@ public class TestBase {
         driver.get(url);
 
     }
-    //ITestResult class describes the result of a test in TestNG
+    // ITestResult class describes the result of a test in TestNG
     @AfterMethod
     public void tearDown(ITestResult result) throws InterruptedException, IOException {
-        //if test fails
+        // If test fails
         if(result.getStatus()==ITestResult.FAILURE){
-            //record the name of failed test case
+            // Record the name of the failed test case
             extentLogger.fail(result.getName());
 
-            //take the screenshot and return location of screenshot
+            // Take the screenshot and return location of screenshot
             String screenShotPath = BrowserUtils.getScreenshot(result.getName());
 
-            //add your screenshot to your report
+            // Add your screenshot to your report
             extentLogger.addScreenCaptureFromPath(screenShotPath);
 
-            //capture the exception and put inside the report
+            // Capture the exception and put inside the report
             extentLogger.fail(result.getThrowable());
 
         }
@@ -96,7 +96,7 @@ public class TestBase {
 
     @AfterTest
     public void tearDownTest() {
-        //this is when the report is actually created
+        // This is when the report is actually created
         report.flush();
     }
 }
