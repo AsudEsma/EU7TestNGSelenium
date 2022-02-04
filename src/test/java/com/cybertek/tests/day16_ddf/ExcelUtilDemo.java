@@ -3,6 +3,7 @@ package com.cybertek.tests.day16_ddf;
 import com.cybertek.utilities.ExcelUtil;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +35,16 @@ public class ExcelUtilDemo {
             System.out.println("oneRow = " + oneRow);
         }
 
+        // For the map, we need to provide the index as index-2, because the first line is our KEYS
         System.out.println("dataList.get(2) = " + dataList.get(2));
         System.out.println("dataList.get(2).get(\"firstname\") = " + dataList.get(2).get("firstname"));
+        System.out.println("dataList.get(8).get(\"lastname\") = " + dataList.get(8).get("lastname"));
+        System.out.println("qa3short.getCellData(9,3) = " + qa3short.getCellData(9, 3));
+
+        // Get all data in 2D array
+        String[][] dataArray = qa3short.getDataArray();
+        System.out.println(Arrays.deepToString(dataArray));
+
 
     }
 }
