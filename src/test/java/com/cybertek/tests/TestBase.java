@@ -19,38 +19,39 @@ public class TestBase {
     protected WebDriver driver;
     protected Actions actions;
     protected WebDriverWait wait;
-    // This class is used for starting and building reports
+    //this class is used for starting and building reports
     protected static ExtentReports report;
-    // This class is used to create HTML report file
+    //this class is used to create HTML report file
     protected static ExtentHtmlReporter htmlReporter;
-    // This will define a test, enables adding logs, authors, and test steps
+    //this will  define a test, enables adding logs, authors, test steps
     protected static ExtentTest extentLogger;
 
-    // Environment set up
+    //env set up
     protected  String url;
 
     @BeforeTest
     public void setUpTest(){
-        // Initialize the class
+        //initialize the class
         report = new ExtentReports();
 
-        // Create a report path
+        //create a report path
         String projectPath = System.getProperty("user.dir");
         String path = projectPath + "/test-output/report.html";
 
-        // Initialize the HTML reporter with the report path
+        //initialize the html reporter with the report path
         htmlReporter = new ExtentHtmlReporter(path);
 
-        // Attach the HTML report to report object
+        //attach the html report to report object
         report.attachReporter(htmlReporter);
 
-        // Title in report
+        //title in report
         htmlReporter.config().setReportName("Vytrack Smoke Test");
 
-        // Set environment information
-        report.setSystemInfo("Environment", "QA");
+        //set environment information
+        report.setSystemInfo("Environment","QA");
         report.setSystemInfo("Browser", ConfigurationReader.get("browser"));
-        report.setSystemInfo("OS", System.getProperty("os.name"));
+        report.setSystemInfo("OS",System.getProperty("os.name"));
+
     }
 
     @BeforeMethod
@@ -72,21 +73,21 @@ public class TestBase {
         driver.get(url);
 
     }
-    // ITestResult class describes the result of a test in TestNG
+    //ITestResult class describes the result of a test in TestNG
     @AfterMethod
     public void tearDown(ITestResult result) throws InterruptedException, IOException {
-        // If test fails
+        //if test fails
         if(result.getStatus()==ITestResult.FAILURE){
-            // Record the name of the failed test case
+            //record the name of failed test case
             extentLogger.fail(result.getName());
 
-            // Take the screenshot and return location of screenshot
+            //take the screenshot and return location of screenshot
             String screenShotPath = BrowserUtils.getScreenshot(result.getName());
 
-            // Add your screenshot to your report
+            //add your screenshot to your report
             extentLogger.addScreenCaptureFromPath(screenShotPath);
 
-            // Capture the exception and put inside the report
+            //capture the exception and put inside the report
             extentLogger.fail(result.getThrowable());
 
         }
@@ -95,8 +96,9 @@ public class TestBase {
     }
 
     @AfterTest
-    public void tearDownTest() {
-        // This is when the report is actually created
+    public void tearDownTest(){
+        //this is when the report is actually created
         report.flush();
+
     }
 }

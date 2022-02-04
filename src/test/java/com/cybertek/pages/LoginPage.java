@@ -35,13 +35,13 @@ public class LoginPage {
     @FindBy(id = "_submit")
     public WebElement loginBtn;
 
-    public void login(String username,String password){
+    public void login(String username,String password) {
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
         loginBtn.click();
     }
 
-    public void loginAsStoreManager(){
+    public void loginAsStoreManager() {
 
         String username = ConfigurationReader.get("storemanager_username");
         String password = ConfigurationReader.get("storemanager_password");
@@ -51,7 +51,7 @@ public class LoginPage {
         loginBtn.click();
     }
 
-    public void loginAsDriver(){
+    public void loginAsDriver() {
 
         String username = ConfigurationReader.get("driver_username");
         String password = ConfigurationReader.get("driver_password");
